@@ -1,35 +1,74 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Form } from "./components/styles/Form.styled";
+import { Title } from "./components/styles/FormTitle.styled";
+import { Label } from "./components/styles/Label.styled";
+import { Main } from "./components/styles/Main.styled";
+import { SubmitBtn } from "./components/styles/SubmitBtn.styled";
 
-function App() {
-  const [count, setCount] = useState(0)
+import { useForm } from "react-hook-form";
+import { TermsOfService } from "./components/styles/TermsOfService";
+
+const App = () => {
+  const { handleSubmit, register, error } = useForm();
+
+  const onSubmit = (data) => {
+    console.log(data);
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
-
-export default App
+    <Main>
+      <Title> Registration Form</Title>
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        <Label htmlFor="fullName">
+          <input
+            id="fullName"
+            autoComplete="true"
+            placeholder="Full Name"
+            {...register("fllName", { required: true, maxLength: 50 })}
+          />
+        </Label>
+        <Label htmlFor="userName">
+          <input
+            id="userName"
+            autoComplete="true"
+            placeholder="User Name"
+            {...register("userName", { required: true, maxLength: 50 })}
+          />
+        </Label>
+        <Label htmlFor="userEmail">
+          <input
+            id="userEmail"
+            placeholder="Email Address"
+            type="email"
+            {...register("userEmail")}
+          />
+        </Label>
+        <Label htmlFor="password">
+          <input
+            id="password"
+            type="password"
+            placeholder="Password"
+            {...register("password", {
+              required: true,
+              maxLength: 100,
+              pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+            })}
+          />
+        </Label>
+        <Label htmlFor="confirmPassword">
+          <input
+            id="confirmPassword"
+            type="password"
+            placeholder="Conform Password"
+            {...register("confirmPassword", {
+              required: true,
+              maxLength: 100,
+              pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+            })}
+          />
+        </Label>
+        <SubmitBtn>Submit</SubmitBtn>
+      </Form>
+    </Main>
+  );
+};
+export default App;
