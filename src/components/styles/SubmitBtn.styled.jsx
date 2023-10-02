@@ -11,4 +11,14 @@ export const SubmitBtn = styled.button`
   text-align: center;
 
   background-image: linear-gradient(90deg, #28ec96, #0bb6e0);
+
+transition: transform ease-in 100ms;
+&:hover, &:focus{
+  outline: none;
+  box-shadow: 0 0 5px #28ec96;
+}
+  &:active{
+    transform: scale(.98);
+  }
+
 `;
